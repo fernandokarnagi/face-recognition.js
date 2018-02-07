@@ -28,7 +28,7 @@ const imagesByClass = classNames.map(c =>
     .map(fp => fr.loadImage(fp))
 )
 
-console.log(imagesByClass);
+console.log("imagesByClass: ", imagesByClass);
 
 const trainDataByClass = imagesByClass.map(imgs => imgs.slice(0, numTrainFaces))
 const testDataByClass = imagesByClass.map(imgs => imgs.slice(numTrainFaces))
