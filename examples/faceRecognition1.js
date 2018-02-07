@@ -28,7 +28,7 @@ const imagesByClass = classNames.map(c =>
     .map(fp => fr.loadImage(fp))
 )
 
-console.log("imagesByClass: ", imagesByClass);
+// console.log("imagesByClass: ", imagesByClass);
 
 const trainDataByClass = imagesByClass.map(imgs => imgs.slice(0, numTrainFaces))
 const testDataByClass = imagesByClass.map(imgs => imgs.slice(numTrainFaces))
@@ -38,6 +38,7 @@ if (!fs.existsSync(trainedModelFilePath)) {
 
   trainDataByClass.forEach((faces, label) => {
     const name = classNames[label]
+    console.log("name: ", name, ", faces: ", faces);
     recognizer.addFaces(faces, name)
   })
 
