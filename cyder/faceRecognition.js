@@ -25,7 +25,7 @@ recognizer.load(require(trainedModelFilePath))
 console.log('imported the following descriptors:')
 console.log(recognizer.getDescriptorState())
 
-let img = fr.loadImage(dataPath + '/test.jpg');
+let img = fr.loadImage(dataPath + '/test2.jpg');
 
 // resize image if too small
 const minPxSize = 400000
