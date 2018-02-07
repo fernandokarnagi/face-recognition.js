@@ -9,29 +9,36 @@ var router = express.Router();
  * Upload image
  */
 router.post('/', function(req, res, next) {  
-  var imageBase64 = req.body.image;
-  var label = req.body.label;
-  console.log(imageBase64);
 
-  var id = new Date().getTime();
-
-  const path = require('path')
-  const fs = require('fs')
-  const {
-    fr,
-    drawRects,
-    getAppdataPath,
-    ensureAppdataDirExists
-  } = require('../cyder/commons')
-
-  const dataPath = path.resolve('/home/ubuntu/data/faces')
-  var fileName = dataPath + "/" + label + "_" + id + ".png";
-
-  fs.writeFile(fileName, imageBase64, 'base64', function(err) {
-    console.log(err);
-    res.send('file is saved'); 
-  });
- 
+  try {
+    var imageBase64 = req.body.image;
+    var label = req.body.label;
+    console.log(imageBase64);
+  
+    var id = new Date().getTime();
+  
+    const path = require('path')
+    const fs = require('fs')
+    const {
+      fr,
+      drawRects,
+      getAppdataPath,
+      ensureAppdataDirExists
+    } = require('../cyder/commons')
+  
+    const dataPath = path.resolve('/home/ubuntu/data/faces')
+    var fileName = dataPath + "/" + label + "_" + id + ".png";
+  
+    fs.writeFile(fileName, imageBase64, 'base64', function(err) {
+      console.log(err);
+      res.send('file is saved'); 
+    });
+   
+  } catch (e) {
+    res.status(500);
+    res.send(e);
+  }
+  
 });
 
 module.exports = router;
