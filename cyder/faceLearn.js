@@ -15,24 +15,23 @@ const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
 const dataPath = path.resolve('./data')
 const facesPath = path.resolve(dataPath, 'faces')
-const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
+const classNames = ['fernando']
 
 const detector = fr.FaceDetector()
 const recognizer = fr.FaceRecognizer()
 
-if (!fs.existsSync(trainedModelFilePath)) {
-  console.log('%s not found, start training recognizer...', trainedModelFile)
-  const allFiles = fs.readdirSync(facesPath)
-  const imagesByClass = classNames.map(c =>
-    allFiles
-      .filter(f => f.includes(c))
-      .map(f => path.join(facesPath, f))
-      .map(fp => fr.loadImage(fp))
-  )
+console.log('start training recognizer, saving to %s ...', trainedModelFile)
+const allFiles = fs.readdirSync(facesPath)
+const imagesByClass = classNames.map(c =>
+  allFiles
+    .filter(f => f.includes(c))
+    .map(f => path.join(facesPath, f))
+    .map(fp => fr.loadImage(fp))
+)
 
-  imagesByClass.forEach((faces, label) =>
-    recognizer.addFaces(faces, classNames[label]))
+imagesByClass.forEach((faces, label) => {
+  console.log("memorizing ", + label + ", with these faces: ", faces);
+  recognizer.addFaces(faces, classNames[label])
+})
 
-  fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize()));
-}  
-
+fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize()));
