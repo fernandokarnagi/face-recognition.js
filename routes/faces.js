@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
     ensureAppdataDirExists
   } = require('../cyder/commons')
 
-  const dataPath = path.resolve(__dirname + '/../cyder/upload')
+  const dataPath = path.resolve('/tmp')
   var fileName = dataPath + "/" + new Date().getTime();
 
   fs.writeFile(fileName, imageBase64, 'base64', function(err) {
@@ -62,8 +62,16 @@ router.post('/', function(req, res, next) {
     const unknownThreshold = 1;
 
     if (faces.length > 0) {
-      const prediction = recognizer.predictBest(faces[0], unknownThreshold) 
-      res.send(prediction);   
+      var rets = [];
+      faceRects.forEach((rect, i) => {
+        const prediction = recognizer.predictBest(faces[i], unknownThreshold) 
+        console.log(rect)
+        console.log(prediction)
+        rets.push({
+          rect, prediction
+        });
+      })
+      res.send(rets);   
     } else {
       res.send('no match found');
     } 

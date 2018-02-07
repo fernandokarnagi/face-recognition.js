@@ -24,11 +24,10 @@ router.get('/', function(req, res, next) {
   const trainedModelFile = 'cyderfaceRecognitionModel.json'
   const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
-  const dataPath = path.resolve(__dirname + '/../cyder/data')
+  const dataPath = path.resolve('/home/ubuntu/data')
   const facesPath = path.resolve(dataPath, 'faces')
-  const classNames = ['fernando', 'raj', 'angela', 'allycia', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
+  const classNames = ['fernando', 'raj', 'angela', 'lakshmi', 'allycia', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
 
-  const detector = fr.FaceDetector()
   const recognizer = fr.FaceRecognizer()
 
   console.log('start training recognizer, saving to %s ...', trainedModelFile)
@@ -46,6 +45,7 @@ router.get('/', function(req, res, next) {
       recognizer.addFaces(faces, classNames[label])
     } catch (e) {} 
   })
+
 
   fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize())); 
   res.send('learned');
