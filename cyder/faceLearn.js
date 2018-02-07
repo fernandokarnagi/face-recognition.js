@@ -15,7 +15,7 @@ const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
 const dataPath = path.resolve('./data')
 const facesPath = path.resolve(dataPath, 'faces')
-const classNames = ['fernando', 'howard']
+const classNames = ['fernando', 'raj']
 
 const detector = fr.FaceDetector()
 const recognizer = fr.FaceRecognizer()
