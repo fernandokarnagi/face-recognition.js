@@ -14,8 +14,6 @@ const trainedModelFile = 'cyderfaceRecognitionModel.json'
 const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
 const dataPath = path.resolve('./data')
-const facesPath = path.resolve(dataPath, 'faces')
-const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
 
 const detector = fr.FaceDetector()
 const recognizer = fr.FaceRecognizer()
@@ -35,13 +33,13 @@ if ((img.cols * img.rows) < minPxSize) {
   img = fr.resizeImage(img, minPxSize / (img.cols * img.rows))
 }
 
-console.log('detecting faces for query image')
-const faceRects = detector.locateFaces(img).map(res => res.rect)
-const faces = detector.getFacesFromLocations(img, faceRects, 150)
-
+console.log('locating faces for query image');
+const faceRects = detector.locateFaces(img).map(res => res.rect);
+console.log('getting faces from locations');
+const faces = detector.getFacesFromLocations(img, faceRects, 150);
 
 // mark faces with distance > 0.6 as unknown
-const unknownThreshold = 0.6
+const unknownThreshold = 0.6;
 faceRects.forEach((rect, i) => {
   const prediction = recognizer.predictBest(faces[i], unknownThreshold) 
   console.log(rect)
