@@ -13,6 +13,8 @@ const numTrainFaces = 5
 const trainedModelFile = `faceRecognition1Model_t${numTrainFaces}_150.json`
 const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
+console.log("trainedModelFilePath: ", trainedModelFilePath);
+
 const dataPath = path.resolve('./data/faces')
 const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
 
