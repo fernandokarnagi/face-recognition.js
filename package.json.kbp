@@ -1,14 +1,14 @@
 {
-  "name": "cyder-face-recognition-app",
-  "version": "1.0.0",
-  "description": "Cyder Face Recognition App",
+  "name": "face-recognition",
+  "version": "0.5.2",
+  "description": "Simple Node.js API for robust face detection and face recognition.",
   "keywords": [
     "face",
     "detection",
     "recognition"
   ],
-  "author": "Fernando Karnagi",
-  "license": "Cyder Free",
+  "author": "justadudewhohacks",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/justadudewhohacks/face-recognition.js"
@@ -26,22 +26,14 @@
     "build": "node-gyp configure build",
     "rebuild": "node-gyp rebuild",
     "clean": "node-gyp clean",
-    "build-debug": "node-gyp rebuild --debug",
-    "start": "node ./bin/www"
+    "build-debug": "node-gyp rebuild --debug"
   },
   "gypfile": true,
   "dependencies": {
     "dlib-build": "0.0.6",
     "face-recognition-models": "0.0.0",
     "nan": "^2.7.0",
-    "native-node-utils": "0.0.0",
-    "body-parser": "~1.17.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.3",
-    "express": "~4.15.2",
-    "morgan": "~1.8.1",
-    "pug": "~2.0.0-beta11",
-    "serve-favicon": "~2.4.2"
+    "native-node-utils": "0.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
