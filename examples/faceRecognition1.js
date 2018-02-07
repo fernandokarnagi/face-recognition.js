@@ -13,7 +13,7 @@ const numTrainFaces = 5
 const trainedModelFile = `faceRecognition1Model_t${numTrainFaces}_150.json`
 const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
-console.log("trainedModelFilePath: ", trainedModelFilePath);
+console.log("Trained Model File Path: ", trainedModelFilePath);
 
 const dataPath = path.resolve('./data/faces')
 const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
@@ -27,6 +27,8 @@ const imagesByClass = classNames.map(c =>
     .map(f => path.join(dataPath, f))
     .map(fp => fr.loadImage(fp))
 )
+
+console.log(imagesByClass);
 
 const trainDataByClass = imagesByClass.map(imgs => imgs.slice(0, numTrainFaces))
 const testDataByClass = imagesByClass.map(imgs => imgs.slice(numTrainFaces))
