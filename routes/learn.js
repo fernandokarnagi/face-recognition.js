@@ -41,12 +41,13 @@ router.get('/', function(req, res, next) {
   )
 
   imagesByClass.forEach((faces, label) => {
-    console.log("memorizing ", classNames[label], ", with these faces: ", faces);
-    recognizer.addFaces(faces, classNames[label])
+    try {
+      console.log("memorizing ", classNames[label], ", with these faces: ", faces);
+      recognizer.addFaces(faces, classNames[label])
+    } catch (e) {} 
   })
 
-  fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize()));
-
+  fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize())); 
   res.send('learned');
  
 });
