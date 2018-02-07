@@ -13,6 +13,8 @@ router.post('/', function(req, res, next) {
   var label = req.body.label;
   console.log(imageBase64);
 
+  var id = new Date().getTime();
+
   const path = require('path')
   const fs = require('fs')
   const {
@@ -23,7 +25,7 @@ router.post('/', function(req, res, next) {
   } = require('../cyder/commons')
 
   const dataPath = path.resolve(__dirname + '/../cyder/data/faces')
-  var fileName = dataPath + "/" + label + ".png";
+  var fileName = dataPath + "/" + label + "_" + id + ".png";
 
   fs.writeFile(fileName, imageBase64, 'base64', function(err) {
     console.log(err);

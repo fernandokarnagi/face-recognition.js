@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var upload = require('./routes/upload');
 var faces = require('./routes/faces');
+var learn = require('./routes/learn');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index); 
+app.use('/learn', learn);
 app.use('/faces', faces);
 app.use('/upload', upload);
 
