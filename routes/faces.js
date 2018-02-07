@@ -12,8 +12,63 @@ var router = express.Router();
 router.post('/', function(req, res, next) {  
   var imageBase64 = req.body.image;
   console.log(imageBase64);
-  res.send('respond with a resource');
 
+  const path = require('path')
+  const fs = require('fs')
+  const {
+    fr,
+    drawRects,
+    getAppdataPath,
+    ensureAppdataDirExists
+  } = require('../cyder/commons')
+
+  const dataPath = path.resolve('../cyder/tmp')
+  var fileName = dataPath + "/" + new Date().getTime();
+
+  fs.writeFile(fileName, imageBase64, 'base64', function(err) {
+    console.log(err);
+
+    fr.winKillProcessOnExit()
+    ensureAppdataDirExists()
+
+    const trainedModelFile = 'cyderfaceRecognitionModel.json'
+    const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
+
+    
+    const detector = fr.FaceDetector()
+    const recognizer = fr.FaceRecognizer()
+
+    console.log('Use this learned model file %s, loading model', trainedModelFile)
+
+    recognizer.load(require(trainedModelFilePath))
+
+    console.log('imported the following descriptors:')
+    console.log(recognizer.getDescriptorState())
+
+    let img = fr.loadImage(fileName);
+
+    // resize image if too small
+    const minPxSize = 400000
+    if ((img.cols * img.rows) < minPxSize) {
+      img = fr.resizeImage(img, minPxSize / (img.cols * img.rows))
+    }
+
+    console.log('locating faces for query image');
+    const faceRects = detector.locateFaces(img).map(res => res.rect);
+    console.log('getting faces from locations');
+    const faces = detector.getFacesFromLocations(img, faceRects, 150);
+
+    // mark faces with distance > 0.6 as unknown
+    const unknownThreshold = 1;
+
+    if (faces.length > 0) {
+      const prediction = recognizer.predictBest(faces[0], unknownThreshold) 
+      res.send(prediction);   
+    } else {
+      res.send('no match found');
+    } 
+  });
+ 
 });
 
 module.exports = router;
