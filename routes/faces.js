@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET users listing. */
 router.post('/', function(req, res, next) {
   var body = req.body;
-  console.log(req);
+  console.log(req.body);
   var imageBase64 = req.image;
   console.log(imageBase64);
   res.send('respond with a resource');
