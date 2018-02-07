@@ -20,59 +20,30 @@ const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
 const detector = fr.FaceDetector()
 const recognizer = fr.FaceRecognizer()
 
-if (!fs.existsSync(trainedModelFilePath)) {
-  console.log('%s not found, start training recognizer...', trainedModelFile)
-  const allFiles = fs.readdirSync(facesPath)
-  const imagesByClass = classNames.map(c =>
-    allFiles
-      .filter(f => f.includes(c))
-      .map(f => path.join(facesPath, f))
-      .map(fp => fr.loadImage(fp))
-  )
+console.log('Use this learned model file %s, loading model', trainedModelFile)
 
-  imagesByClass.forEach((faces, label) =>
-    recognizer.addFaces(faces, classNames[label]))
+recognizer.load(require(trainedModelFilePath))
 
-  fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize()));
-} else {
-  console.log('found %s, loading model', trainedModelFile)
+console.log('imported the following descriptors:')
+console.log(recognizer.getDescriptorState())
 
-  recognizer.load(require(trainedModelFilePath))
+let img = fr.loadImage(dataPath + '/bbt1.jpg');
 
-  console.log('imported the following descriptors:')
-  console.log(recognizer.getDescriptorState())
+// resize image if too small
+const minPxSize = 400000
+if ((img.cols * img.rows) < minPxSize) {
+  img = fr.resizeImage(img, minPxSize / (img.cols * img.rows))
 }
 
-const bbtThemeImgs = fs.readdirSync(dataPath)
-  .filter(f => f.includes('bbt'))
-  .map(f => path.join(dataPath, f))
-  .map(fp => fr.loadImage(fp))
+console.log('detecting faces for query image')
+const faceRects = detector.locateFaces(img).map(res => res.rect)
+const faces = detector.getFacesFromLocations(img, faceRects, 150)
 
-bbtThemeImgs.forEach((_img, i) => {
-  let img = _img
 
-  // resize image if too small
-  const minPxSize = 400000
-  if ((img.cols * img.rows) < minPxSize) {
-    img = fr.resizeImage(img, minPxSize / (img.cols * img.rows))
-  }
-
-  console.log('detecting faces for query image')
-  const faceRects = detector.locateFaces(img).map(res => res.rect)
-  const faces = detector.getFacesFromLocations(img, faceRects, 150)
-
-  // const win = new fr.ImageWindow()
-  // win.setImage(img)
-  // drawRects(win, faceRects)
-
-  // mark faces with distance > 0.6 as unknown
-  const unknownThreshold = 0.6
-  faceRects.forEach((rect, i) => {
-    const prediction = recognizer.predictBest(faces[i], unknownThreshold)
-    // win.addOverlay(rect, `${prediction.className} (${prediction.distance})`)
-    console.log(rect)
-    console.log(prediction)
-  })
+// mark faces with distance > 0.6 as unknown
+const unknownThreshold = 0.6
+faceRects.forEach((rect, i) => {
+  const prediction = recognizer.predictBest(faces[i], unknownThreshold) 
+  console.log(rect)
+  console.log(prediction)
 })
-fr.hitEnterToContinue()
-
