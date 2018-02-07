@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.post('/', function(req, res, next) {
-  var body = JSON.parse(req.body);
+router.post('/', function(req, res, next) { 
   console.log(req.body);
   var imageBase64 = req.image;
   console.log(imageBase64);
