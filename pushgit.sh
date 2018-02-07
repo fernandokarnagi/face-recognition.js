@@ -1,3 +1,3 @@
 git add .
 git commit -m "-"
-git push fernando master
+git push origin master
