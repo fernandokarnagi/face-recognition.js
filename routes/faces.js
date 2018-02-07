@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
     ensureAppdataDirExists
   } = require('../cyder/commons')
 
-  const dataPath = path.resolve('../cyder/tmp')
+  const dataPath = path.resolve(__dirname + '../cyder/tmp')
   var fileName = dataPath + "/" + new Date().getTime();
 
   fs.writeFile(fileName, imageBase64, 'base64', function(err) {
