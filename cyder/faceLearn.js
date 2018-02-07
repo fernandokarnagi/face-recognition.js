@@ -30,7 +30,7 @@ const imagesByClass = classNames.map(c =>
 )
 
 imagesByClass.forEach((faces, label) => {
-  console.log("memorizing ", + classNames[label] + ", with these faces: ", faces);
+  console.log("memorizing ", classNames[label], ", with these faces: ", faces);
   recognizer.addFaces(faces, classNames[label])
 })
 
