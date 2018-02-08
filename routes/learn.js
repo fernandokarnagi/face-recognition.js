@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
   
     const dataPath = path.resolve('/home/ubuntu/data')
     const facesPath = path.resolve(dataPath, 'faces')
-    const classNames = ['fernando', 'raj', 'angela', 'lakshmi', 'allycia', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
+    const classNames = ['fernando', 'angela', 'lakshmi', 'allycia', 'keping', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
   
     const recognizer = fr.FaceRecognizer()
   
