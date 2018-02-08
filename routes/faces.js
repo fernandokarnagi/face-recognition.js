@@ -23,8 +23,8 @@ router.post('/', function(req, res, next) {
       ensureAppdataDirExists
     } = require('../cyder/commons')
   
-    const uploadPath = path.resolve('/tmp')
-    const dataPath = path.resolve('/home/ubuntu/data')
+    var uploadPath = path.resolve('/tmp')
+    var dataPath = path.resolve('/home/ubuntu/data')
     var fileName = uploadPath + "/" + new Date().getTime();
   
     fs.writeFile(fileName, imageBase64, 'base64', function(err) {
@@ -33,12 +33,12 @@ router.post('/', function(req, res, next) {
       fr.winKillProcessOnExit()
       ensureAppdataDirExists()
   
-      const trainedModelFile = 'cyderfaceRecognitionModel.json'
-      const trainedModelFilePath = path.resolve(dataPath, trainedModelFile)
+      var trainedModelFile = 'cyderfaceRecognitionModel.json'
+      var trainedModelFilePath = path.resolve(dataPath, trainedModelFile)
   
       
-      const detector = fr.FaceDetector()
-      const recognizer = fr.FaceRecognizer()
+      var detector = fr.FaceDetector()
+      var recognizer = fr.FaceRecognizer()
   
       console.log('Use this learned model file %s, loading model', trainedModelFilePath)
   
@@ -50,24 +50,24 @@ router.post('/', function(req, res, next) {
       let img = fr.loadImage(fileName);
   
       // resize image if too small
-      const minPxSize = 400000
+      var minPxSize = 400000
       if ((img.cols * img.rows) < minPxSize) {
         img = fr.resizeImage(img, minPxSize / (img.cols * img.rows))
       }
   
       console.log('locating faces for query image');
-      const faceRects = detector.locateFaces(img).map(res => res.rect);
+      var faceRects = detector.locateFaces(img).map(res => res.rect);
       console.log('getting faces from locations');
-      const faces = detector.getFacesFromLocations(img, faceRects, 150);
+      var faces = detector.getFacesFromLocations(img, faceRects, 150);
   
       // mark faces with distance > 2 as unknown
-      const unknownThreshold = 2;
+      var unknownThreshold = 2;
 
       var names = '';
   
       if (faces.length > 0) { 
         faceRects.forEach((rect, i) => {
-          const prediction = recognizer.predictBest(faces[i], unknownThreshold) 
+          var prediction = recognizer.predictBest(faces[i], unknownThreshold) 
           console.log(rect)
           console.log(prediction)
           names = prediction.className + ',' + names

@@ -22,20 +22,20 @@ router.get('/', function(req, res, next) {
     fr.winKillProcessOnExit()
     ensureAppdataDirExists()
   
-    const dataPath = path.resolve('/home/ubuntu/data')
+    var dataPath = path.resolve('/home/ubuntu/data')
 
-    const trainedModelFile = 'cyderfaceRecognitionModel.json'
-    const trainedModelFilePath = path.resolve(dataPath, trainedModelFile)
+    var trainedModelFile = 'cyderfaceRecognitionModel.json'
+    var trainedModelFilePath = path.resolve(dataPath, trainedModelFile)
   
     
-    const facesPath = path.resolve(dataPath, 'faces')
-    const classNames = ['fernando', 'angela', 'lakshmi', 'allycia', 'keping', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
+    var facesPath = path.resolve(dataPath, 'faces')
+    var classNames = ['fernando', 'angela', 'lakshmi', 'allycia', 'keping', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
   
-    const recognizer = fr.FaceRecognizer()
+    var recognizer = fr.FaceRecognizer()
   
     console.log('start training recognizer, saving to %s ...', trainedModelFile)
-    const allFiles = fs.readdirSync(facesPath)
-    const imagesByClass = classNames.map(c =>
+    var allFiles = fs.readdirSync(facesPath)
+    var imagesByClass = classNames.map(c =>
       allFiles
         .filter(f => f.includes(c))
         .map(f => path.join(facesPath, f))
