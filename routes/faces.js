@@ -60,8 +60,8 @@ router.post('/', function(req, res, next) {
       console.log('getting faces from locations');
       const faces = detector.getFacesFromLocations(img, faceRects, 150);
   
-      // mark faces with distance > 0.6 as unknown
-      const unknownThreshold = 1;
+      // mark faces with distance > 2 as unknown
+      const unknownThreshold = 2;
 
       var names = '';
   
