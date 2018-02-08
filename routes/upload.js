@@ -1,5 +1,5 @@
 /**
- * To test: curl -v -X POST -H "Content-Type: application/json" -d @upload.json 'http://ec2-52-221-182-171.ap-southeast-1.compute.amazonaws.com:3000/upload'
+ * To test: curl -v -X POST -H "Content-Type: application/json" -d @upload.json 'http://face.cyder.com.sg:3000/upload'
  */
 
 var express = require('express');

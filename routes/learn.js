@@ -1,5 +1,5 @@
 /**
-* To test: curl -v -X GET 'http://ec2-52-221-182-171.ap-southeast-1.compute.amazonaws.com:3000/learn'
+* To test: curl -v -X GET 'http://face.cyder.com.sg:3000/learn'
  */
 
 var express = require('express');
