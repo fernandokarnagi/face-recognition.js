@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
       const detector = fr.FaceDetector()
       const recognizer = fr.FaceRecognizer()
   
-      console.log('Use this learned model file %s, loading model', trainedModelFile)
+      console.log('Use this learned model file %s, loading model', trainedModelFilePath)
   
       recognizer.load(require(trainedModelFilePath))
   
