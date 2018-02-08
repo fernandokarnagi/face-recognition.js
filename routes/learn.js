@@ -22,10 +22,12 @@ router.get('/', function(req, res, next) {
     fr.winKillProcessOnExit()
     ensureAppdataDirExists()
   
-    const trainedModelFile = 'cyderfaceRecognitionModel.json'
-    const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
-  
     const dataPath = path.resolve('/home/ubuntu/data')
+
+    const trainedModelFile = 'cyderfaceRecognitionModel.json'
+    const trainedModelFilePath = path.resolve(dataPath, trainedModelFile)
+  
+    
     const facesPath = path.resolve(dataPath, 'faces')
     const classNames = ['fernando', 'angela', 'lakshmi', 'allycia', 'keping', 'abigail', 'larry', 'damian', 'sherine', 'ivan', 'yin']
   

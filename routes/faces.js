@@ -23,8 +23,9 @@ router.post('/', function(req, res, next) {
       ensureAppdataDirExists
     } = require('../cyder/commons')
   
-    const dataPath = path.resolve('/tmp')
-    var fileName = dataPath + "/" + new Date().getTime();
+    const uploadPath = path.resolve('/tmp')
+    const dataPath = path.resolve('/home/ubuntu/data')
+    var fileName = uploadPath + "/" + new Date().getTime();
   
     fs.writeFile(fileName, imageBase64, 'base64', function(err) {
       console.log(err);
@@ -33,7 +34,7 @@ router.post('/', function(req, res, next) {
       ensureAppdataDirExists()
   
       const trainedModelFile = 'cyderfaceRecognitionModel.json'
-      const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
+      const trainedModelFilePath = path.resolve(dataPath, trainedModelFile)
   
       
       const detector = fr.FaceDetector()
