@@ -72,6 +72,9 @@ router.post('/', function(req, res, next) {
           console.log(prediction)
           names = prediction.className + ',' + names
         })
+        if (names.endsWith(',')) {
+          names = names.substring(0, names.length - 1);
+        }
         res.send(names);   
       } else {
         res.send('no match found');
