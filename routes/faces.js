@@ -61,18 +61,17 @@ router.post('/', function(req, res, next) {
   
       // mark faces with distance > 0.6 as unknown
       const unknownThreshold = 1;
+
+      var names = '';
   
-      if (faces.length > 0) {
-        var rets = [];
+      if (faces.length > 0) { 
         faceRects.forEach((rect, i) => {
           const prediction = recognizer.predictBest(faces[i], unknownThreshold) 
           console.log(rect)
           console.log(prediction)
-          rets.push({
-            rect, prediction
-          });
+          names = prediction.className + ',' + names
         })
-        res.send(rets);   
+        res.send(names);   
       } else {
         res.send('no match found');
       } 
