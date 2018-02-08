@@ -42,6 +42,7 @@ router.post('/', function(req, res, next) {
   
       console.log('Use this learned model file %s, loading model', trainedModelFilePath)
   
+      delete require.cache[require.resolve(trainedModelFilePath)]
       recognizer.load(require(trainedModelFilePath))
   
       console.log('imported the following descriptors:')
